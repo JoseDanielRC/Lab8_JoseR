@@ -2,6 +2,7 @@
 #include<iostream>
 #include <string>
 Pieza::Pieza(){
+    nombre=' ';
 }
 Pieza::Pieza(char nombre){
 

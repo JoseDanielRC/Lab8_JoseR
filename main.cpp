@@ -18,24 +18,35 @@ Pieza*** llenado(){
     {
         tablero[i]=new Pieza*[8]; 
     }
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            tablero[i][j]=new Pieza();
+        }
+        
+            
+    }
+    
     return tablero;
 }
 void imprimir(Pieza*** tablero){
-    for (int i = 0; i < 8; i++)
+   for (int i = 0; i < 8; i++)
     {
-        for (int j = 0;  j< 8; i++)
+        for (int j = 0;  j< 8; j++)
         {
             cout<<"["<<tablero[i][j]->getnombre()<<"]";
         }
         cout<<endl;
     }
+    cout<<"esooooo"<<endl;
 
 }
 int main(){
     cout<<"pasoo"<<endl;
     char resp='s';
     Pieza*** tablero;
-    Rey* rey= new Rey();
+    Rey* rey= new Rey('K');
     cout<<"pasoo"<<endl;
     string coordenada;
     int turno=1,opcion,pieza;
@@ -44,6 +55,7 @@ int main(){
         tablero=llenado();
         tablero[7][4]=rey;
         tablero[0][4]=rey;
+        imprimir(tablero);
             cout<<"1.Nuevo juego\n"
                   "2.Repeticion juego anterior"<<endl;
             cin>>opcion;
@@ -60,29 +72,29 @@ int main(){
                         switch (pieza)
                         {
                         case 1:{
-                            Peon* peon=new Peon();
+                            Peon* peon=new Peon('P');
                             tablero[6][4]=peon;
                             tablero[1][4]=peon;
                             
                         }break;
                         case 2:{
-                            Torre* torre=new Torre();
+                            Torre* torre=new Torre('T');
                             tablero[7][0]=torre;
                             tablero[0][0]=torre;
                         }break;
                         case 3:{
-                            Caballo* caballo=new Caballo();
+                            Caballo* caballo=new Caballo('C');
                             tablero[7][1]=caballo;
                             tablero[0][1]=caballo;
                         }break;
                         case 4:{ 
-                            Alfil* alfil= new Alfil();
+                            Alfil* alfil= new Alfil('A');
                             tablero[7][2]=alfil;
                             tablero[0][2]=alfil;
                             
                         }break;
                         case 5:{ 
-                            Reina* reina = new Reina();
+                            Reina* reina = new Reina('R');
                             tablero[7][3]=reina;
                             tablero[0][3]=reina;
                             
@@ -93,37 +105,44 @@ int main(){
                             while (turno==1){
                                 cout<<"Jugador 1 ingrese su coordenada [ax(posicion actual),bx(destino)]"<<endl;
                                 cin>>coordenada;
-                                x=((coordenada[1])-97)*-1+8;
-                                cout<<x<<endl;
-                                cout<<"holaa";
-                                y=(coordenada[4]-97)*-1+8;
+                                x=(((coordenada[1])-97)*-1)+7;
                                 
-                                if(tablero[x][((int)coordenada[2])*-1+8]->validarMovimiento(x,((int)coordenada[2])*-1+8,y,(coordenada[5]-48)*-1+8)){
-                                    tablero[y][((int)coordenada[5])*-1+8]=tablero[x][((int)coordenada[2])*-1+8];
-                                    tablero[x][((int)coordenada[2])*-1]->setnombre(' ');
-                                    //imprimir(tablero);
+                                x1=((coordenada[4]-97)*-1)+7;
+                                y=((coordenada[2]-48)*-1)+7;
+
+                                y1=(coordenada[5]-48*-1)+7;
+                                turno=2;
+                                if(tablero[x][y]->validarMovimiento(x,y,x1,y1)){
+                                    tablero[x1][y1]=tablero[x][y];
+                                    tablero[x][y]->setnombre(' ');
+                                   imprimir(tablero);
                                     turno=2;
                                     
                                 }else{
-                                    turno=1;
+                                     turno=1;
                                 }          
 
                             }
                             while(turno==2){
                                 cout<<"Jugador 2 ingrese su coordenada [ax(posicion actual),bx(destino)]"<<endl;
                                 cin>>coordenada;
-                               x=((coordenada[1])-97)*-1+8;
-                               
-                                y=(coordenada[4]-97)*-1+8;
-                                if(tablero[x][((int)coordenada[2])*-1+8]->validarMovimiento(x,((int)coordenada[2])*-1+8,y,(coordenada[5]-48)*-1+8)){
-                                    tablero[y][((int)coordenada[5])*-1+8]=tablero[x][((int)coordenada[2])*-1+8];
-                                    tablero[x][((int)coordenada[2])*-1]->setnombre(' ');
-                                    imprimir(tablero);
+                                x=(((coordenada[1])-97)*-1)+7;
+                                
+                                cout<<x<<endl;
+                                x1=((coordenada[4]-97)*-1)+7;
+                                y=((coordenada[2]-48)*-1)+7;
+                                cout<<y;
+                                y1=(coordenada[5]-48*-1)+7;
+                                turno=2;
+                                if(tablero[x][y]->validarMovimiento(x,y,x1,y1)){
+                                    tablero[x1][y1]=tablero[x][y];
+                                    tablero[x][y]->setnombre(' ');
+                                   imprimir(tablero);
                                     turno=1;
                                     
                                 }else{
-                                    turno=2;
-                                }          
+                                     turno=2;
+                                }
                        }
                            cout<<"Salir=0"<<endl;
                            cin>>turno;         
